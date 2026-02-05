@@ -1,0 +1,99 @@
+.modal-container-category {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg);
+    border: 1px solid var(--bg);
+    border-top: 1px solid var(--highlight);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-s);
+    padding: 1rem;
+    width: 40%;
+    height: 70%;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.modal-category-list {
+    margin: 0;
+    padding: 1rem;
+    overflow: auto;
+}
+
+.modal-category-list li {
+    box-sizing: border-box;
+    position: relative;
+    background-color: var(--bg-light);
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    border: 1px solid var(--bg);
+    border-top: 1px solid var(--highlight);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-s);
+    list-style-type: none;
+    width: 100%;
+    gap: 1rem;
+}
+
+.modal-category-list li > input {
+    border: 1px solid var(--bg-dark);
+    flex: 1;
+    border-radius: 0.5rem;
+    margin-left: -0.5rem;
+    padding-left: 0.5rem;
+}
+
+.add-category {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    width: calc(100%-2rem);
+    margin: 0 1rem;
+    box-sizing: border-box;
+}
+
+.add-category > input {
+    flex: 1;
+    padding: 1rem;
+    border: 1px solid var(--bg);
+    border-top: 1px solid var(--highlight);
+    border-radius: 1rem;
+    background-color: var(--bg-light);
+    box-shadow: var(--shadow-s);
+    box-sizing: border-box;
+}
+
+.add-category > button {
+    flex-shrink: 0;
+    padding: 1rem 1.5rem;
+    color: var(--bg-light);
+    background-color: var(--text);
+    cursor: pointer;
+    border-top: 1px solid var(--border-muted);
+    box-shadow: var(--shadow-s);
+    border-radius: 1rem;
+}
+
+.list-button {
+    margin-right: 1rem;
+    cursor: pointer;
+    font-size: 1.3rem;
+}
+
+.list-button:last-child {
+    margin-right: 0;
+}
+
+.modal-category-button {
+    padding: 1rem 1.5rem;
+    color: var(--bg-light);
+    background-color: var(--text);
+    cursor: pointer;
+    border-top: 1px solid var(--border-muted);
+    box-shadow: var(--shadow-s);
+    border-radius: 1rem;
+}

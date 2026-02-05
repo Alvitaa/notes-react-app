@@ -1,0 +1,12 @@
+.wrapper {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: repeat(3, 1fr);
+  width: 85%;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+}
