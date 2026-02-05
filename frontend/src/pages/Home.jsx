@@ -1,5 +1,5 @@
 import Main from "../components/Main/Main";
-import { useUser } from "../context/UserContext";
+import { useUser } from "../context/useUser";
 
 export default function Home() {
     const { logout } = useUser();

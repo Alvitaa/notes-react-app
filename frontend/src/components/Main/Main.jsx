@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useUser } from "../../context/UserContext";
+import { useUser } from "../../context/useUser";
 import { getActiveNotes, getArchivedNotes } from "../../api/NoteApi";
 import Card from "../Card/Card";
 import NoteModal from "../Modal/NoteModal";
@@ -67,40 +67,53 @@ export default function Main() {
     };
 
     useEffect(() => {
-        if (user.id) {
-            fetchNotes(showArchived);
-            fetchCategories();
-            setCategoriesUpdated(false);
-        }
+        if (!user?.id) return;
+
+        const loadData = async () => {
+            await fetchNotes(showArchived);
+            await fetchCategories();
+            await setCategoriesUpdated(false);
+        };
+
+        loadData();
     }, [showArchived, user.id, categoriesUpdated]);
 
     useEffect(() => {
+        const loadData = async (data) => {
+            await setFilteredNotes(data);
+        }
+
         if (selectedCategory === "0" || selectedCategory === 0) {
-            setFilteredNotes(notes);
+            loadData(notes);
         } else {
             const filtered = notes.filter((note) =>
                 Array.isArray(note.categories)
                     ? note.categories.some(
-                          (category) => category.id === Number(selectedCategory)
+                          (category) =>
+                              category.id === Number(selectedCategory),
                       )
-                    : false
+                    : false,
             );
-            setFilteredNotes(filtered);
+            loadData(filtered);
         }
     }, [notes, selectedCategory]);
 
     useEffect(() => {
+        const loadData = async (data) => {
+            await setFilteredNotes(data);
+        }
+
         if (sortOrder === "created") {
-            setFilteredNotes((prevNotes) =>
+            loadData((prevNotes) =>
                 [...prevNotes].sort(
-                    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-                )
+                    (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+                ),
             );
         } else if (sortOrder === "updated") {
-            setFilteredNotes((prevNotes) =>
+            loadData((prevNotes) =>
                 [...prevNotes].sort(
-                    (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
-                )
+                    (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt),
+                ),
             );
         }
     }, [notes, sortOrder]);

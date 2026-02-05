@@ -1,6 +1,5 @@
 import { Navigate } from "react-router-dom";
-import { useUser } from "../../context/UserContext";
-
+import { useUser } from "../../context/useUser";
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useUser();

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { useUser } from "../../context/UserContext";
+import { useUser } from "../../context/useUser";
 import { getCategories } from "../../api/CategoryApi";
 import { createNote, deleteNote, updateNote } from "../../api/NoteApi";
 import SelectCategory from "./SelectCategory";
-import "./Modal.css"
+import "./Modal.css";
 import "./NoteModal.css";
 
 export default function NoteModal({ note, onClose, setNotes, fetchNotes }) {
@@ -12,13 +12,17 @@ export default function NoteModal({ note, onClose, setNotes, fetchNotes }) {
     const [content, setContent] = useState(note?.content || "");
     const [categories, setCategories] = useState([]);
     const [selectedCategories, setSelectedCategories] = useState(
-        note?.categories || []
+        note?.categories || [],
     );
 
     useEffect(() => {
-        setTitle(note?.title || "");
-        setContent(note?.content || "");
-        setSelectedCategories(note?.categories || []);
+        const loadData = async () => {
+            await setTitle(note?.title || "");
+            await setContent(note?.content || "");
+            await setSelectedCategories(note?.categories || []);
+        };
+
+        loadData();
     }, [note]);
 
     useEffect(() => {
@@ -31,7 +35,7 @@ export default function NoteModal({ note, onClose, setNotes, fetchNotes }) {
         setSelectedCategories((prevSelectedCategories) => {
             if (prevSelectedCategories.some((cat) => cat.id === category.id)) {
                 return prevSelectedCategories.filter(
-                    (cat) => cat.id !== category.id
+                    (cat) => cat.id !== category.id,
                 );
             } else {
                 return [...prevSelectedCategories, category];
@@ -51,8 +55,8 @@ export default function NoteModal({ note, onClose, setNotes, fetchNotes }) {
                 .then((updatedNote) => {
                     setNotes((prevNotes) =>
                         prevNotes.map((n) =>
-                            n.id === updatedNote.id ? updatedNote : n
-                        )
+                            n.id === updatedNote.id ? updatedNote : n,
+                        ),
                     );
                     onClose();
                 })
@@ -96,8 +100,8 @@ export default function NoteModal({ note, onClose, setNotes, fetchNotes }) {
                 .then((savedNote) => {
                     setNotes((prevNotes) =>
                         prevNotes.map((n) =>
-                            n.id === savedNote.id ? savedNote : n
-                        )
+                            n.id === savedNote.id ? savedNote : n,
+                        ),
                     );
                     fetchNotes(note.archived);
                     onClose();
@@ -112,7 +116,7 @@ export default function NoteModal({ note, onClose, setNotes, fetchNotes }) {
     const handleDelete = () => {
         if (
             window.confirm(
-                "This will permanently delete the note. Are you sure?"
+                "This will permanently delete the note. Are you sure?",
             ) &&
             note?.id != null
         ) {
@@ -174,7 +178,9 @@ export default function NoteModal({ note, onClose, setNotes, fetchNotes }) {
                                     onClick={toggleArchive}
                                     className="info"
                                 >
-                                    {note.archived ? "Unarchive note" : "Archive note"}
+                                    {note.archived
+                                        ? "Unarchive note"
+                                        : "Archive note"}
                                 </button>
                                 <button
                                     onClick={handleDelete}

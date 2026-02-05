@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useUser } from "../../context/UserContext";
+import { useUser } from "../../context/useUser";
 import {
     createCategory,
     deleteCategory,
@@ -54,7 +54,7 @@ export default function CategoryModal({
             setCategories((prev) => [...prev, createdCategory]);
             setNewCategory("");
         } catch (error) {
-            console.error("Error creating category.");
+            console.error("Error creating category.", error);
             alert("Error creating category.");
         }
     };
@@ -76,7 +76,7 @@ export default function CategoryModal({
             setEditingId(null);
             setEditingName("");
         } catch (error) {
-            console.error("Error updating category.");
+            console.error("Error updating category.", error);
             alert("Error updating category.");
         }
     };
@@ -94,7 +94,7 @@ export default function CategoryModal({
                     prev.filter((cat) => cat.id !== categoryId)
                 );
             } catch (error) {
-                console.error("Error deleting category.");
+                console.error("Error deleting category.", error);
                 alert("Error deleting category.");
             }
         }
